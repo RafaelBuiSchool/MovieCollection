@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -67,11 +68,11 @@ public class MovieCollection
         }
         else if (option.equals("r"))
         {
-            listHighestRated();
+            topRatedMovies();
         }
         else if (option.equals("h"))
         {
-            listHighestRevenue();
+            highestRevenueMovies();
         }
         else
         {
@@ -301,6 +302,59 @@ public class MovieCollection
         System.out.println("\n ** Press Enter to Return to Main Menu **");
         scanner.nextLine();
     }
+    private void topRatedMovies(){
+        ArrayList<Movie> highestRatedMovies = new ArrayList<>();
+        for(int i = 0; i < highestRatedMovies.size()-1;i++){
+            for(int x = 0; x < highestRatedMovies.size()-i-1;x++){
+                if(highestRatedMovies.get(x).getUserRating() < highestRatedMovies.get(x+1).getUserRating()){
+                    Movie tempVariable = highestRatedMovies.get(x);
+                    highestRatedMovies.set(x,highestRatedMovies.get(x+1));
+                    highestRatedMovies.set(x+1,tempVariable);
+                }
+            }
+        }
+        for(int i = 0; i < Math.min(50,highestRatedMovies.size());i++){
+            Movie x = highestRatedMovies.get(i);
+            System.out.println(i+1 + ". " + x.getTitle()+ ": " + x.getUserRating());
+        }
+        System.out.println("Choose a title: ");
+        int choice = scanner.nextInt();
+        scanner.nextLine();
+
+        Movie selectedTitle = highestRatedMovies.get(choice - 1);
+
+        displayMovieInfo(selectedTitle);
+
+        System.out.println("\n ** Press Enter to Return to Main Menu **");
+        scanner.nextLine();
+    }
+
+    private void highestRevenueMovies(){
+        ArrayList<Movie>highestRevenue = new ArrayList<>();
+        for(int i = 0; i < highestRevenue.size()-1;i++){
+            for(int x = 0; x < highestRevenue.size()-i-1;x++){
+                if(highestRevenue.get(x).getRevenue() < highestRevenue.get(x+1).getRevenue()){
+                    Movie tempVariable = highestRevenue.get(x);
+                    highestRevenue.set(x,highestRevenue.get(x+1));
+                    highestRevenue.set(x+1,tempVariable);
+                }
+            }
+        }
+        for(int i = 0; i < Math.min(50,highestRevenue.size());i++){
+            Movie x = highestRevenue.get(i);
+            System.out.println(i+1 + ". " + x.getTitle()+ ": " + x.getRevenue());
+        }
+        System.out.println("Choose a title: ");
+        int choice = scanner.nextInt();
+        scanner.nextLine();
+
+        Movie selectedTitle = highestRevenue.get(choice - 1);
+
+        displayMovieInfo(selectedTitle);
+
+        System.out.println("\n ** Press Enter to Return to Main Menu **");
+        scanner.nextLine();
+    }
 
     private void sortResults(ArrayList<Movie> listToSort)
     {
@@ -332,6 +386,7 @@ public class MovieCollection
             listToSort.set(possibleIndex, temp);
         }
     }
+
 
     private void displayMovieInfo(Movie movie)
     {
