@@ -303,7 +303,7 @@ public class MovieCollection
         scanner.nextLine();
     }
     private void topRatedMovies(){
-        ArrayList<Movie> highestRatedMovies = new ArrayList<>();
+        ArrayList<Movie> highestRatedMovies = new ArrayList<>(movies);
         for(int i = 0; i < highestRatedMovies.size()-1;i++){
             for(int x = 0; x < highestRatedMovies.size()-i-1;x++){
                 if(highestRatedMovies.get(x).getUserRating() < highestRatedMovies.get(x+1).getUserRating()){
@@ -330,7 +330,7 @@ public class MovieCollection
     }
 
     private void highestRevenueMovies(){
-        ArrayList<Movie>highestRevenue = new ArrayList<>();
+        ArrayList<Movie>highestRevenue = new ArrayList<>(movies);
         for(int i = 0; i < highestRevenue.size()-1;i++){
             for(int x = 0; x < highestRevenue.size()-i-1;x++){
                 if(highestRevenue.get(x).getRevenue() < highestRevenue.get(x+1).getRevenue()){
